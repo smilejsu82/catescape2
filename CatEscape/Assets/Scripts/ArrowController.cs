@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    public float moveSpeed = 0.001f;
-    private int dir = -1;
     public float radius = 1f;
-    public Transform playerTrans;
+    private float moveSpeed;
+    private float damage;
+    private int dir = -1;
+    private Transform playerTrans;
+    
 
     private void Start()
     {
+        this.playerTrans = GameObject.Find("player").transform;
+
         //길이 
         //Vector3 c = playerTrans.position - this.transform.position;
         //float d1 = c.magnitude;
@@ -18,9 +22,17 @@ public class ArrowController : MonoBehaviour
         //float d2 = Mathf.Abs(playerTrans.position.y - this.transform.position.y);
     }
 
+    public void Init(float damage, float moveSpeed)
+    {
+        this.damage = damage;
+        this.moveSpeed = moveSpeed;
+
+        //Debug.Log($"{this.damage}, {this.moveSpeed}");
+    }
+
     void Update()
     {
-        this.transform.Translate(0, dir * moveSpeed, 0);
+        this.transform.Translate(0, dir * moveSpeed * Time.deltaTime, 0);
 
         bool isCollided = this.CheckCollsion();
 
@@ -48,16 +60,19 @@ public class ArrowController : MonoBehaviour
         PlayerController playerController = this.playerTrans.gameObject.GetComponent<PlayerController>();
 
         float sumRadius = this.radius + playerController.radius;
-        Debug.Log($"{distance}, {sumRadius}");
+        //Debug.Log($"{distance}, {sumRadius}");
 
         if (distance <= sumRadius)
         {
-            Debug.Log("충돌했습니다.");
+            //Debug.Log("충돌했습니다.");
+
+            //플레이어의 체력을 감소 시킨다 
+            playerController.HitDamage(this.damage);
             return true;
         }
         else
         {
-            Debug.Log("충돌안했습니다.");
+            //Debug.Log("충돌안했습니다.");
             return false;
         }
     }
