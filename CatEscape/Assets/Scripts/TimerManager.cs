@@ -16,6 +16,11 @@ public class TimerManager : MonoBehaviour
 
         //Debug.Log($"남은 시간: {this.remainTime.ToString("0.00")}");
 
+        if (this.remainTime <= 0) {
+            this.remainTime = 0;
+            
+        }
+
         this.gameDirector.UpdateRemainTimeUI(remainTime);
     }
 }

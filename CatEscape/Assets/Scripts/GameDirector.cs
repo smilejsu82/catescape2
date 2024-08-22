@@ -21,5 +21,8 @@ public class GameDirector : MonoBehaviour
 
         this.remainTimeSecText.text = arr[0];
         this.remainTimeMilliSecText.text = $".{arr[1]}";
-}
+
+        //int intpart = (int)remainTime;
+        //float floatpart = remainTime - intpart;
+    }
 }

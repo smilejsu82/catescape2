@@ -61,8 +61,14 @@ public class ArrowGenerator : MonoBehaviour
         arrowGo.transform.position = new Vector3(randomPosX, 6.5f, 0);
     }
 
+    public void StartGenerate()
+    {
+        Debug.Log("화살 생성을 시작 합니다.");
+    }
+
     public void StopGenerate()
     {
         this.isStop = true;
+        Debug.Log("화살 생성을 종료 합니다.");
     }
 }
